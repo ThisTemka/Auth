@@ -5,6 +5,8 @@ import 'package:auth/pages/confirm/states/input/i_confirm_page_input_state.dart'
 import 'package:auth/pages/confirm/states/timer/i_confirm_page_timer_state.dart';
 import 'package:auth/services/router/i_router.dart';
 import 'package:auth/services/router/route_page_paths.dart';
+import 'package:auth/services/translation/i_translation.dart';
+import 'package:auth/services/translation/translation_type.dart';
 import 'package:auth/states/user/i_user_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,6 +34,7 @@ class ConfirmPageManager implements IConfirmPageManager {
 
   IRouter get router => ref.read(routerProvider);
   IAuthManager get authManager => ref.read(authManagerProvider);
+  ITranslation get translation => ref.read(translationProvider);
 
   @override
   void back() {
@@ -70,5 +73,15 @@ class ConfirmPageManager implements IConfirmPageManager {
 
   bool _validateCode(String code) {
     return code.length == 6;
+  }
+
+  @override
+  TranslationType getTranslationType() {
+    return translation.translationType;
+  }
+
+  @override
+  void changeTranslation(TranslationType translationType) {
+    translation.changeLanguage(translationType);
   }
 }

@@ -4,6 +4,8 @@ import 'package:auth/pages/login/states/data/i_login_page_data_state.dart';
 import 'package:auth/pages/login/states/input/i_login_page_input_state.dart';
 import 'package:auth/services/router/i_router.dart';
 import 'package:auth/services/router/route_page_paths.dart';
+import 'package:auth/services/translation/i_translation.dart';
+import 'package:auth/services/translation/translation_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginPageManager implements ILoginPageManager {
@@ -22,6 +24,7 @@ class LoginPageManager implements ILoginPageManager {
 
   IRouter get router => ref.read(routerProvider);
   IAuthManager get authManager => ref.read(authManagerProvider);
+  ITranslation get translation => ref.read(translationProvider);
 
   @override
   void login() {
@@ -51,5 +54,15 @@ class LoginPageManager implements ILoginPageManager {
     pageDataState = pageDataState.copyWith(
       nullError: true,
     );
+  }
+
+  @override
+  TranslationType getTranslationType() {
+    return translation.translationType;
+  }
+
+  @override
+  void changeTranslation(TranslationType translationType) {
+    translation.changeLanguage(translationType);
   }
 }

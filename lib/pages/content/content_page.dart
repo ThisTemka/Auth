@@ -1,4 +1,6 @@
 import 'package:auth/pages/content/managers/i_content_page_manager.dart';
+import 'package:auth/pages/content/translation/content_page_translation.dart';
+import 'package:auth/services/translation/translation_type.dart';
 import 'package:auth/states/user/i_user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,7 +19,19 @@ class ContentPage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 80),
+            const SizedBox(height: 10),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Switch.adaptive(
+                value: manager.getTranslationType() == TranslationType.ru,
+                onChanged: (value) => manager.changeTranslation(
+                    value ? TranslationType.ru : TranslationType.en),
+                thumbIcon: WidgetStateProperty.all(
+                  const Icon(Icons.translate),
+                ),
+              ),
+            ),
+            const SizedBox(height: 70),
             // Аватар пользователя
             Container(
               width: 120,
@@ -39,7 +53,7 @@ class ContentPage extends ConsumerWidget {
             const SizedBox(height: 30),
             // Приветствие
             Text(
-              'Hi!',
+              ContentPageTranslation.hi,
               style: const TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -56,8 +70,8 @@ class ContentPage extends ConsumerWidget {
               ),
               child: Column(
                 children: [
-                  const Text(
-                    'Your User ID',
+                  Text(
+                    ContentPageTranslation.yourId,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
@@ -90,8 +104,8 @@ class ContentPage extends ConsumerWidget {
                   ),
                 ),
                 icon: const Icon(Icons.logout),
-                label: const Text(
-                  'Log Out',
+                label: Text(
+                  ContentPageTranslation.logoutButton,
                   style: TextStyle(fontSize: 18),
                 ),
               ),
@@ -108,17 +122,17 @@ class ContentPage extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Confirm Logout'),
-        content: const Text('Are you sure you want to log out?'),
+        title: Text(ContentPageTranslation.confirmLogoutTitle),
+        content: Text(ContentPageTranslation.confirmLogout),
         actions: [
           TextButton(
             onPressed: () => manager.back(),
-            child: const Text('Cancel'),
+            child: Text(ContentPageTranslation.cancel),
           ),
           TextButton(
             onPressed: () => manager.logout(),
-            child: const Text(
-              'Log Out',
+            child: Text(
+              ContentPageTranslation.logoutButton,
               style: TextStyle(color: Colors.red),
             ),
           ),

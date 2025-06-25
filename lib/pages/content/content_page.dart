@@ -15,82 +15,100 @@ class ContentPage extends ConsumerWidget {
     final userState = ref.watch(userStateProvider);
 
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        actions: [
+          Switch.adaptive(
+            value: manager.getTranslationType() == TranslationType.ru,
+            onChanged: (value) => manager.changeTranslation(
+                value ? TranslationType.ru : TranslationType.en),
+            thumbIcon: WidgetStateProperty.all(
+              const Icon(Icons.translate),
+            ),
+          )
+        ],
+      ),
       body: Padding(
-        padding: EdgeInsets.all(24.0.w),
+        padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 10.h),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 10.h),
-            Align(
-              alignment: Alignment.centerRight,
-              child: Switch.adaptive(
-                value: manager.getTranslationType() == TranslationType.ru,
-                onChanged: (value) => manager.changeTranslation(
-                    value ? TranslationType.ru : TranslationType.en),
-                thumbIcon: WidgetStateProperty.all(
-                  const Icon(Icons.translate),
-                ),
-              ),
-            ),
-            SizedBox(height: 70.h),
-            // Аватар пользователя
-            Container(
-              width: 120.w,
-              height: 120.h,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.blue[100],
-                border: Border.all(
-                  color: Colors.blue,
-                  width: 2.w,
-                ),
-              ),
-              child: Icon(
-                Icons.person,
-                size: 60.w,
-                color: Colors.blue,
-              ),
-            ),
-            SizedBox(height: 30.h),
-            // Приветствие
-            Text(
-              ContentPageTranslation.hi,
-              style: TextStyle(
-                fontSize: 28.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 15.h),
-            // ID пользователя
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(10.r),
-                border: Border.all(color: Colors.grey[300]!),
-              ),
-              child: Column(
+            Expanded(
+              child: ListView(
                 children: [
-                  Text(
-                    ContentPageTranslation.yourId,
-                    style: TextStyle(
-                      fontSize: 16.sp,
-                      color: Colors.grey,
+                  SizedBox(
+                      height: ScreenUtil().orientation == Orientation.landscape
+                          ? 10.h
+                          : 80.h),
+                  // Аватар пользователя
+                  Container(
+                    width: ScreenUtil().orientation == Orientation.landscape
+                        ? 120.h
+                        : 120.w,
+                    height: ScreenUtil().orientation == Orientation.landscape
+                        ? 120.h
+                        : 120.w,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.blue[100],
+                      border: Border.all(
+                        color: Colors.blue,
+                        width: 2.w,
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.person,
+                      size: ScreenUtil().orientation == Orientation.landscape
+                          ? 60.h
+                          : 60.w,
+                      color: Colors.blue,
                     ),
                   ),
-                  SizedBox(height: 5.h),
+                  SizedBox(height: 30.h),
+                  // Приветствие
                   Text(
-                    userState.id.toString(),
+                    ContentPageTranslation.hi,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 20.sp,
+                      fontSize: 28.spMin,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2.h,
                     ),
                   ),
+                  SizedBox(height: 15.h),
+                  // ID пользователя
+                  Container(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(10.r),
+                      border: Border.all(color: Colors.grey[300]!),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          ContentPageTranslation.yourId,
+                          style: TextStyle(
+                            fontSize: 16.spMin,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        SizedBox(height: 5.h),
+                        Text(
+                          userState.id.toString(),
+                          style: TextStyle(
+                            fontSize: 20.spMin,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.2.h,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
                 ],
               ),
             ),
-            const Spacer(),
             // Кнопка выхода
             SizedBox(
               width: double.infinity,
@@ -107,11 +125,11 @@ class ContentPage extends ConsumerWidget {
                 icon: Icon(Icons.logout),
                 label: Text(
                   ContentPageTranslation.logoutButton,
-                  style: TextStyle(fontSize: 18.sp),
+                  style: TextStyle(fontSize: 18.spMin),
                 ),
               ),
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 10.h),
           ],
         ),
       ),

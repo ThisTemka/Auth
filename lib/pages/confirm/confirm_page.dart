@@ -7,8 +7,10 @@ import 'package:auth/pages/confirm/translation/confirm_page_translation.dart';
 import 'package:auth/services/translation/translation_type.dart';
 import 'package:auth/states/user/i_user_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ConfirmPage extends ConsumerStatefulWidget {
   const ConfirmPage({super.key});
@@ -70,96 +72,109 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0.w),
+          padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 10.h),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 40.h),
-              Text(
-                ConfirmPageTranslation.title,
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 20.h),
-              RichText(
-                text: TextSpan(
-                  text: ConfirmPageTranslation.enterCode,
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: Colors.black54,
-                  ),
+              Expanded(
+                child: ListView(
                   children: [
-                    TextSpan(
-                      text: userState.email,
-                      style: const TextStyle(
+                    SizedBox(
+                        height:
+                            ScreenUtil().orientation == Orientation.landscape
+                                ? 10.h
+                                : 40.h),
+                    Text(
+                      ConfirmPageTranslation.verification,
+                      style: TextStyle(
+                        fontSize: 24.spMin,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
                       ),
                     ),
+                    SizedBox(height: 15.h),
+                    RichText(
+                      text: TextSpan(
+                        text: ConfirmPageTranslation.enterCode,
+                        style: TextStyle(
+                          fontSize: 16.spMin,
+                          color: Colors.black54,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: userState.email,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 30.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      spacing: 10.w,
+                      children: List.generate(6, (index) {
+                        return SizedBox(
+                          width:
+                              ScreenUtil().orientation == Orientation.landscape
+                                  ? 20.w
+                                  : 40.w,
+                          child: TextField(
+                            focusNode: pageInputState.focusNodes[index],
+                            controller: pageInputState.controllers[index],
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            maxLength: 1,
+                            style: TextStyle(fontSize: 20.spMin),
+                            decoration: InputDecoration(
+                              counterText: '',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.r),
+                              ),
+                              error: pageDataState.error != null
+                                  ? const SizedBox.shrink()
+                                  : null,
+                            ),
+                            onChanged: (value) =>
+                                manager.inputCode(index, value),
+                          ),
+                        );
+                      }),
+                    ),
+                    if (pageDataState.error != null)
+                      Padding(
+                        padding: EdgeInsets.only(left: 8.0.w, top: 10.h),
+                        child: Text(
+                          pageDataState.error!,
+                          style: const TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    SizedBox(height: 10.h),
+                    Center(
+                      child: pageDataState.resendEnabled
+                          ? TextButton(
+                              onPressed: () => resendManager.waitResendCode(),
+                              child: Text(
+                                ConfirmPageTranslation.resendCode,
+                                style: TextStyle(
+                                  fontSize: 16.spMin,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            )
+                          : Text(
+                              ConfirmPageTranslation.resendCodeIn(
+                                  pageTimerState.countdown),
+                              style: TextStyle(
+                                fontSize: 16.spMin,
+                                color: Colors.grey,
+                              ),
+                            ),
+                    ),
+                    SizedBox(height: 10.h),
                   ],
                 ),
               ),
-              SizedBox(height: 40.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(6, (index) {
-                  return SizedBox(
-                    width: 45.w,
-                    child: TextField(
-                      focusNode: pageInputState.focusNodes[index],
-                      controller: pageInputState.controllers[index],
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      maxLength: 1,
-                      style: TextStyle(fontSize: 20.sp),
-                      decoration: InputDecoration(
-                        counterText: '',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                        error: pageDataState.error != null
-                            ? const SizedBox.shrink()
-                            : null,
-                      ),
-                      onChanged: (value) => manager.inputCode(index, value),
-                    ),
-                  );
-                }),
-              ),
-              SizedBox(height: 10.h),
-              if (pageDataState.error != null)
-                Padding(
-                  padding: EdgeInsets.only(left: 8.0.w),
-                  child: Text(
-                    pageDataState.error!,
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                ),
-              SizedBox(height: 30.h),
-              Center(
-                child: pageDataState.resendEnabled
-                    ? TextButton(
-                        onPressed: () => resendManager.waitResendCode(),
-                        child: Text(
-                          ConfirmPageTranslation.resendCode,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      )
-                    : Text(
-                        ConfirmPageTranslation.resendCodeIn(
-                            pageTimerState.countdown),
-                        style: TextStyle(
-                          fontSize: 16.sp,
-                          color: Colors.grey,
-                        ),
-                      ),
-              ),
-              const Spacer(),
 
               // Verify Button
               SizedBox(
@@ -177,12 +192,12 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
                     ConfirmPageTranslation.verify,
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16.sp,
+                      fontSize: 16.spMin,
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 10.h),
             ],
           ),
         ),

@@ -1,7 +1,6 @@
 import 'package:auth/services/router/i_router_config.dart';
 import 'package:auth/services/translation/i_translation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +18,7 @@ class App extends ConsumerWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         initialRoute: router.initialRoute,
         getPages: router.routes,
         translations: translation.translations,

@@ -3,7 +3,8 @@ import 'package:auth/services/translation/translation_type.dart';
 import 'package:get/get.dart';
 
 class ConfirmPageTranslation {
-  static String get title => ConfirmPageTranslationType.verification.key.tr;
+  static String get verification =>
+      ConfirmPageTranslationType.verification.key.tr;
   static String get enterCode => ConfirmPageTranslationType.enterCode.key.tr;
   static String get resendCode => ConfirmPageTranslationType.resendCode.key.tr;
   static String resendCodeIn(int seconds) =>

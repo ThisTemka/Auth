@@ -50,7 +50,7 @@ class ConfirmPageResendManager implements IConfirmPageResendManager {
 
   void _onTickTimer() {
     final seconds =
-        (pageTimerState.lastTick!.difference(DateTime.now()).inMilliseconds /
+        (DateTime.now().difference(pageTimerState.lastTick!).inMilliseconds /
                 1000)
             .round();
     pageTimerState = pageTimerState.copyWith(

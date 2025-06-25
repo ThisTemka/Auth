@@ -1,13 +1,13 @@
 import 'package:auth/api/response_status.dart';
 
 class UserAuthApiResponse {
-  ResponseStatus status;
-  String? error;
-  final String userId;
+  final ResponseStatus status;
+  final String? error;
+  final String? userId;
 
   UserAuthApiResponse({
     required this.status,
-    required this.error,
-    required this.userId,
+    this.error,
+    this.userId,
   });
 }

@@ -65,10 +65,10 @@ class AuthManager implements IAuthManager {
         expiresAt: DateTime.now().add(const Duration(hours: 1)),
       );
       final userStateEntity = _userStateEntityFactory(
-        token: response.jwt,
+        token: response.jwt!,
         isExpiresAt: true,
         expiresAt: DateTime.now().add(const Duration(hours: 1)),
-        refreshToken: response.refreshToken,
+        refreshToken: response.refreshToken!,
       );
       final saveResult = await _userStateEntityRepository.save(userStateEntity);
       if (!saveResult) return false;
@@ -91,10 +91,10 @@ class AuthManager implements IAuthManager {
         expiresAt: DateTime.now().add(const Duration(hours: 1)),
       );
       final userStateEntity = _userStateEntityFactory(
-        token: response.jwt,
+        token: response.jwt!,
         isExpiresAt: true,
         expiresAt: DateTime.now().add(const Duration(hours: 1)),
-        refreshToken: response.refreshToken,
+        refreshToken: response.refreshToken!,
       );
       final saveResult = await _userStateEntityRepository.save(userStateEntity);
       if (!saveResult) return false;

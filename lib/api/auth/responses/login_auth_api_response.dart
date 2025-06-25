@@ -1,9 +1,9 @@
 import 'package:auth/api/response_status.dart';
 
 class LoginAuthApiResponse {
-  ResponseStatus status;
-  String? error;
-  String? info;
+  final ResponseStatus status;
+  final String? error;
+  final String? info;
 
   LoginAuthApiResponse({
     required this.status,

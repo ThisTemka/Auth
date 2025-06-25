@@ -5,10 +5,13 @@ class ConfirmPageDataState implements IConfirmPageDataState {
   final bool resendEnabled;
   @override
   final String? error;
+  @override
+  final bool isLoading;
 
   const ConfirmPageDataState({
     required this.resendEnabled,
     this.error,
+    required this.isLoading,
   });
 
   @override
@@ -16,10 +19,12 @@ class ConfirmPageDataState implements IConfirmPageDataState {
     bool? resendEnabled,
     bool? nullError,
     String? error,
+    bool? isLoading,
   }) {
     return ConfirmPageDataState(
       resendEnabled: resendEnabled ?? this.resendEnabled,
       error: nullError == true ? null : error ?? this.error,
+      isLoading: isLoading ?? this.isLoading,
     );
   }
 }

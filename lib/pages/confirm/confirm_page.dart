@@ -7,10 +7,8 @@ import 'package:auth/pages/confirm/translation/confirm_page_translation.dart';
 import 'package:auth/services/translation/translation_type.dart';
 import 'package:auth/states/user/i_user_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class ConfirmPage extends ConsumerStatefulWidget {
   const ConfirmPage({super.key});

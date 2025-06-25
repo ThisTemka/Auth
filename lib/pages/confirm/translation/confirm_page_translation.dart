@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 
 class ConfirmPageTranslation {
   static String get title => ConfirmPageTranslationType.verification.key.tr;
-  static String enterCode(String email) =>
-      ConfirmPageTranslationType.enterCode.key.trParams({'email': email});
+  static String get enterCode => ConfirmPageTranslationType.enterCode.key.tr;
   static String get resendCode => ConfirmPageTranslationType.resendCode.key.tr;
   static String resendCodeIn(int seconds) =>
       ConfirmPageTranslationType.resendCodeIn.key
@@ -16,7 +15,7 @@ class ConfirmPageTranslation {
         TranslationType.en.languageCode: {
           ConfirmPageTranslationType.verification.key: 'Verification',
           ConfirmPageTranslationType.enterCode.key:
-              'Enter the code sent to your email @email',
+              'Enter the code sent to your email ',
           ConfirmPageTranslationType.resendCode.key: 'Resend code',
           ConfirmPageTranslationType.resendCodeIn.key:
               'Resend code in @seconds seconds',
@@ -25,7 +24,7 @@ class ConfirmPageTranslation {
         TranslationType.ru.languageCode: {
           ConfirmPageTranslationType.verification.key: 'Подтверждение',
           ConfirmPageTranslationType.enterCode.key:
-              'Введите код, отправленный на ваш email @email',
+              'Введите код, отправленный на ваш email ',
           ConfirmPageTranslationType.resendCode.key: 'Повторная отправка кода',
           ConfirmPageTranslationType.resendCodeIn.key:
               'Повторная отправка кода через @seconds секунд',

@@ -3,40 +3,39 @@ import 'package:auth/entities/local/settings/i_settings_entity.dart';
 import 'package:auth/entities/local/settings/i_settings_entity_repository.dart';
 import 'package:auth/entities/local/settings/settings_mapper.dart';
 import 'package:auth/services/translation/translation_type.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auth/services/store/i_store.dart';
 
 class SettingsEntityRepository
     implements ISettingsEntityRepository, IConfigSettingsEntityRepository {
-  static const id = 0;
-  final Ref ref;
-  final IStore store;
-  final SettingsMapper mapper = SettingsMapper();
+  static const int _id = 0;
 
-  SettingsEntityRepository(this.ref, this.store);
+  final IStore _store;
+  final SettingsMapper _mapper;
+
+  SettingsEntityRepository(this._store, this._mapper);
 
   @override
-  Future<void> save(ISettingsEntity entity) async {
-    final json = mapper.toSettingsJson(entity);
-    await store.save<ISettingsEntity>(id, json);
+  Future<bool> save(ISettingsEntity entity) async {
+    final json = _mapper.toSettingsJson(entity);
+    return await _store.save<ISettingsEntity>(_id, json);
   }
 
   @override
   Future<ISettingsEntity> load() async {
-    final entity = await store.load<ISettingsEntity>(id);
-    return mapper.toSettingsEntity(entity!);
+    final entity = await _store.load<ISettingsEntity>(_id);
+    return _mapper.toSettingsEntity(entity!);
   }
 
   @override
   Future<bool> has() async {
-    final entity = await store.load<ISettingsEntity>(id);
+    final entity = await _store.load<ISettingsEntity>(_id);
     return entity != null;
   }
 
   @override
-  Future<void> setTranslationType(TranslationType translationType) async {
+  Future<bool> setTranslationType(TranslationType translationType) async {
     final entity = await load();
     final newEntity = entity.copyWith(translationType: translationType);
-    await save(newEntity);
+    return await save(newEntity);
   }
 }

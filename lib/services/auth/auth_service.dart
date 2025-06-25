@@ -6,26 +6,30 @@ import 'package:auth/states/user/i_user_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthService implements IConfigAuthService {
-  final Ref ref;
-  Timer? timer;
+  final Ref _ref;
+  Timer? _timer;
 
-  AuthService(this.ref);
+  AuthService(this._ref);
 
-  IAuthManager get authManager => ref.read(authManagerProvider);
-  IUserState get userState => ref.read(userStateProvider);
+  IAuthManager get _authManager => _ref.read(authManagerProvider);
+  IUserState get _userState => _ref.read(userStateProvider);
 
   @override
   Future<bool> load() async {
-    final result = await authManager.load();
+    final result = await _authManager.load();
     _onCheckExpire();
-    timer =
+    _timer =
         Timer.periodic(const Duration(minutes: 1), (timer) => _onCheckExpire());
     return result;
   }
 
   void _onCheckExpire() {
-    if (userState.expiresAt?.isBefore(DateTime.now()) ?? false) {
-      authManager.refresh();
+    if (_userState.expiresAt?.isBefore(DateTime.now()) ?? false) {
+      _authManager.refresh();
     }
+  }
+
+  void dispose() {
+    _timer?.cancel();
   }
 }

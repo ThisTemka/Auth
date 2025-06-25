@@ -4,6 +4,4 @@ import 'package:flutter/material.dart';
 class LoginPageInputState implements ILoginPageInputState {
   @override
   final TextEditingController inputEmailController = TextEditingController();
-
-  LoginPageInputState();
 }

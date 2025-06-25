@@ -1,8 +1,6 @@
 import 'package:auth/pages/confirm/states/data/i_confirm_page_data_state.dart';
 
 class ConfirmPageDataState implements IConfirmPageDataState {
-  static const String emptyTemplate = '      ';
-
   @override
   final bool resendEnabled;
   @override

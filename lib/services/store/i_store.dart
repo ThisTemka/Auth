@@ -7,6 +7,6 @@ final storeProvider = Provider.autoDispose<IStore>((ref) {
 });
 
 abstract interface class IStore {
-  Future<void> save<T extends IEntity>(int key, Map<String, dynamic> entity);
+  Future<bool> save<T extends IEntity>(int key, Map<String, dynamic> entity);
   Future<Map<String, dynamic>?> load<T extends IEntity>(int key);
 }

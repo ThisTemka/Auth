@@ -7,41 +7,39 @@ import 'package:auth/pages/confirm/states/timer/i_confirm_page_timer_state.dart'
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ConfirmPageResendManager implements IConfirmPageResendManager {
-  final Ref ref;
+  final Ref _ref;
 
-  ConfirmPageResendManager(this.ref);
+  ConfirmPageResendManager(this._ref);
 
-  IConfirmPageDataState get pageDataState =>
-      ref.read(confirmPageDataStateProvider);
-  set pageDataState(IConfirmPageDataState state) =>
-      ref.read(confirmPageDataStateProvider.notifier).state = state;
-  IConfirmPageInputState get pageInputState =>
-      ref.read(confirmPageInputStateProvider);
-  set pageInputState(IConfirmPageInputState state) =>
-      ref.read(confirmPageInputStateProvider.notifier).state = state;
-  IConfirmPageTimerState get pageTimerState =>
-      ref.read(confirmPageTimerStateProvider);
-  set pageTimerState(IConfirmPageTimerState state) =>
-      ref.read(confirmPageTimerStateProvider.notifier).state = state;
+  IConfirmPageDataState get _pageDataState =>
+      _ref.read(confirmPageDataStateProvider);
+  set _pageDataState(IConfirmPageDataState state) =>
+      _ref.read(confirmPageDataStateProvider.notifier).state = state;
+  IConfirmPageInputState get _pageInputState =>
+      _ref.read(confirmPageInputStateProvider);
+  IConfirmPageTimerState get _pageTimerState =>
+      _ref.read(confirmPageTimerStateProvider);
+  set _pageTimerState(IConfirmPageTimerState state) =>
+      _ref.read(confirmPageTimerStateProvider.notifier).state = state;
 
   @override
   void waitResendCode() {
     _startTimer();
-    for (var focusNode in pageInputState.focusNodes) {
+    for (var focusNode in _pageInputState.focusNodes) {
       focusNode.unfocus();
     }
-    pageInputState.focusNodes[0].requestFocus();
-    for (var controller in pageInputState.controllers) {
+    _pageInputState.focusNodes[0].requestFocus();
+    for (var controller in _pageInputState.controllers) {
       controller.clear();
     }
-    pageDataState = pageDataState.copyWith(
+    _pageDataState = _pageDataState.copyWith(
       nullError: true,
     );
   }
 
   void _startTimer() {
-    pageDataState = pageDataState.copyWith(resendEnabled: false);
-    pageTimerState = pageTimerState.copyWith(
+    _pageDataState = _pageDataState.copyWith(resendEnabled: false);
+    _pageTimerState = _pageTimerState.copyWith(
         countdown: 30,
         lastTick: DateTime.now(),
         timer: Timer.periodic(
@@ -50,22 +48,22 @@ class ConfirmPageResendManager implements IConfirmPageResendManager {
 
   void _onTickTimer() {
     final seconds =
-        (DateTime.now().difference(pageTimerState.lastTick!).inMilliseconds /
+        (DateTime.now().difference(_pageTimerState.lastTick!).inMilliseconds /
                 1000)
             .round();
-    pageTimerState = pageTimerState.copyWith(
-      countdown: pageTimerState.countdown - seconds,
+    _pageTimerState = _pageTimerState.copyWith(
+      countdown: _pageTimerState.countdown - seconds,
       lastTick: DateTime.now(),
     );
-    if (pageTimerState.countdown <= 0) {
+    if (_pageTimerState.countdown <= 0) {
       _stopTimer();
     }
   }
 
   void _stopTimer() {
-    pageTimerState.timer?.cancel();
-    pageTimerState = pageTimerState.copyWith(timer: null, countdown: 0);
-    pageDataState = pageDataState.copyWith(
+    _pageTimerState.timer?.cancel();
+    _pageTimerState = _pageTimerState.copyWith(timer: null, countdown: 0);
+    _pageDataState = _pageDataState.copyWith(
       resendEnabled: true,
     );
   }

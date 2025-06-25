@@ -5,6 +5,7 @@ import 'package:auth/pages/login/translation/login_page_translation.dart';
 import 'package:auth/services/translation/translation_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
@@ -30,11 +31,11 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     return Scaffold(
         body: SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        padding: EdgeInsets.symmetric(horizontal: 24.0.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Align(
               alignment: Alignment.centerRight,
               child: Switch.adaptive(
@@ -46,31 +47,31 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
             Text(
               LoginPageTranslation.title,
               style: TextStyle(
-                fontSize: 24,
+                fontSize: 24.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             Text(
               LoginPageTranslation.welcome,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 18.sp,
                 color: Colors.black54,
               ),
             ),
-            const SizedBox(height: 40),
+            SizedBox(height: 40.h),
             Text(
               LoginPageTranslation.enterEmail,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             TextField(
               controller: pageInputState.inputEmailController,
               onChanged: (value) => manager.inputEmail(value),
@@ -78,32 +79,32 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               decoration: InputDecoration(
                 hintText: LoginPageTranslation.enterEmailHint,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(8.0.r),
                 ),
                 errorText: pageDataState.error,
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 14,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16.w,
+                  vertical: 14.h,
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
             SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 50.h,
               child: ElevatedButton(
                 onPressed: () => manager.login(),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(8.0.r),
                   ),
                 ),
                 child: Text(
                   LoginPageTranslation.loginButton,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                   ),
                 ),
               ),

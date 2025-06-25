@@ -8,6 +8,7 @@ import 'package:auth/services/translation/translation_type.dart';
 import 'package:auth/states/user/i_user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ConfirmPage extends ConsumerStatefulWidget {
   const ConfirmPage({super.key});
@@ -69,24 +70,24 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          padding: EdgeInsets.symmetric(horizontal: 24.0.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 40),
+              SizedBox(height: 40.h),
               Text(
                 ConfirmPageTranslation.title,
-                style: const TextStyle(
-                  fontSize: 24,
+                style: TextStyle(
+                  fontSize: 24.sp,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               RichText(
                 text: TextSpan(
                   text: ConfirmPageTranslation.enterCode,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style: TextStyle(
+                    fontSize: 16.sp,
                     color: Colors.black54,
                   ),
                   children: [
@@ -100,23 +101,23 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 40),
+              SizedBox(height: 40.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(6, (index) {
                   return SizedBox(
-                    width: 45,
+                    width: 45.w,
                     child: TextField(
                       focusNode: pageInputState.focusNodes[index],
                       controller: pageInputState.controllers[index],
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
                       maxLength: 1,
-                      style: const TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20.sp),
                       decoration: InputDecoration(
                         counterText: '',
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                         error: pageDataState.error != null
                             ? const SizedBox.shrink()
@@ -127,24 +128,24 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
                   );
                 }),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               if (pageDataState.error != null)
                 Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
+                  padding: EdgeInsets.only(left: 8.0.w),
                   child: Text(
                     pageDataState.error!,
                     style: const TextStyle(color: Colors.red),
                   ),
                 ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30.h),
               Center(
                 child: pageDataState.resendEnabled
                     ? TextButton(
                         onPressed: () => resendManager.waitResendCode(),
                         child: Text(
                           ConfirmPageTranslation.resendCode,
-                          style: const TextStyle(
-                            fontSize: 16,
+                          style: TextStyle(
+                            fontSize: 16.sp,
                             color: Colors.blue,
                           ),
                         ),
@@ -152,8 +153,8 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
                     : Text(
                         ConfirmPageTranslation.resendCodeIn(
                             pageTimerState.countdown),
-                        style: const TextStyle(
-                          fontSize: 16,
+                        style: TextStyle(
+                          fontSize: 16.sp,
                           color: Colors.grey,
                         ),
                       ),
@@ -163,25 +164,25 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
               // Verify Button
               SizedBox(
                 width: double.infinity,
-                height: 50,
+                height: 50.h,
                 child: ElevatedButton(
                   onPressed: () => manager.verifyCode(),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(8.0.r),
                     ),
                   ),
                   child: Text(
                     ConfirmPageTranslation.verify,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
+                      fontSize: 16.sp,
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30.h),
             ],
           ),
         ),

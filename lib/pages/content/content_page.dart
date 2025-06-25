@@ -4,6 +4,7 @@ import 'package:auth/services/translation/translation_type.dart';
 import 'package:auth/states/user/i_user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ContentPage extends ConsumerWidget {
   const ContentPage({super.key});
@@ -15,11 +16,11 @@ class ContentPage extends ConsumerWidget {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: EdgeInsets.all(24.0.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Align(
               alignment: Alignment.centerRight,
               child: Switch.adaptive(
@@ -31,41 +32,41 @@ class ContentPage extends ConsumerWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 70),
+            SizedBox(height: 70.h),
             // Аватар пользователя
             Container(
-              width: 120,
-              height: 120,
+              width: 120.w,
+              height: 120.h,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.blue[100],
                 border: Border.all(
                   color: Colors.blue,
-                  width: 2,
+                  width: 2.w,
                 ),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.person,
-                size: 60,
+                size: 60.w,
                 color: Colors.blue,
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
             // Приветствие
             Text(
               ContentPageTranslation.hi,
-              style: const TextStyle(
-                fontSize: 28,
+              style: TextStyle(
+                fontSize: 28.sp,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 15),
+            SizedBox(height: 15.h),
             // ID пользователя
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+              padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 20.w),
               decoration: BoxDecoration(
                 color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(color: Colors.grey[300]!),
               ),
               child: Column(
@@ -73,17 +74,17 @@ class ContentPage extends ConsumerWidget {
                   Text(
                     ContentPageTranslation.yourId,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       color: Colors.grey,
                     ),
                   ),
-                  const SizedBox(height: 5),
+                  SizedBox(height: 5.h),
                   Text(
                     userState.id.toString(),
-                    style: const TextStyle(
-                      fontSize: 20,
+                    style: TextStyle(
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
+                      letterSpacing: 1.2.h,
                     ),
                   ),
                 ],
@@ -93,24 +94,24 @@ class ContentPage extends ConsumerWidget {
             // Кнопка выхода
             SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 50.h,
               child: ElevatedButton.icon(
                 onPressed: () => _showLogoutConfirmation(context, manager),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red[50],
                   foregroundColor: Colors.red,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10.r),
                   ),
                 ),
-                icon: const Icon(Icons.logout),
+                icon: Icon(Icons.logout),
                 label: Text(
                   ContentPageTranslation.logoutButton,
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: 18.sp),
                 ),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20.h),
           ],
         ),
       ),

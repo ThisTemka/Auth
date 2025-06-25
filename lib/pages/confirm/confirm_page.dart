@@ -84,7 +84,7 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
               const SizedBox(height: 20),
               RichText(
                 text: TextSpan(
-                  text: ConfirmPageTranslation.enterCode(userState.email!),
+                  text: ConfirmPageTranslation.enterCode,
                   style: const TextStyle(
                     fontSize: 16,
                     color: Colors.black54,

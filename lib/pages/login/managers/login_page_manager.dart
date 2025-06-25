@@ -9,37 +9,36 @@ import 'package:auth/services/translation/translation_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginPageManager implements ILoginPageManager {
-  final Ref ref;
+  final Ref _ref;
   @override
-  LoginPageManager(this.ref);
+  LoginPageManager(this._ref);
 
-  ILoginPageDataState get pageDataState => ref.read(loginPageDataStateProvider);
-  set pageDataState(ILoginPageDataState state) =>
-      ref.read(loginPageDataStateProvider.notifier).state = state;
+  ILoginPageDataState get _pageDataState =>
+      _ref.read(loginPageDataStateProvider);
+  set _pageDataState(ILoginPageDataState state) =>
+      _ref.read(loginPageDataStateProvider.notifier).state = state;
 
-  ILoginPageInputState get pageInputState =>
-      ref.read(loginPageInputStateProvider);
-  set pageInputState(ILoginPageInputState state) =>
-      ref.read(loginPageInputStateProvider.notifier).state = state;
+  ILoginPageInputState get _pageInputState =>
+      _ref.read(loginPageInputStateProvider);
 
-  IRouter get router => ref.read(routerProvider);
-  IAuthManager get authManager => ref.read(authManagerProvider);
-  ITranslation get translation => ref.read(translationProvider);
+  IRouter get _router => _ref.read(routerProvider);
+  IAuthManager get _authManager => _ref.read(authManagerProvider);
+  ITranslation get _translation => _ref.read(translationProvider);
 
   @override
   void login() {
-    final email = pageInputState.inputEmailController.text;
+    final email = _pageInputState.inputEmailController.text;
     if (_validateEmail(email)) {
       _authLogin(email);
     } else {
-      pageDataState = pageDataState.copyWith(error: 'Invalid email');
+      _pageDataState = _pageDataState.copyWith(error: 'Invalid email');
     }
   }
 
   void _authLogin(String email) async {
-    final result = await authManager.login(email);
+    final result = await _authManager.login(email);
     if (result) {
-      router.navigateTo(RoutePagePaths.confirm);
+      _router.navigateTo(RoutePagePaths.confirm);
     }
   }
 
@@ -51,18 +50,18 @@ class LoginPageManager implements ILoginPageManager {
 
   @override
   void inputEmail(String email) {
-    pageDataState = pageDataState.copyWith(
+    _pageDataState = _pageDataState.copyWith(
       nullError: true,
     );
   }
 
   @override
   TranslationType getTranslationType() {
-    return translation.translationType;
+    return _translation.translationType;
   }
 
   @override
   void changeTranslation(TranslationType translationType) {
-    translation.changeLanguage(translationType);
+    _translation.changeLanguage(translationType);
   }
 }

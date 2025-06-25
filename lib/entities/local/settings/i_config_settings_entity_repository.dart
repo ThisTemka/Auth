@@ -8,6 +8,6 @@ final configSettingsEntityRepositoryProvider =
 });
 
 abstract interface class IConfigSettingsEntityRepository {
-  Future<void> save(ISettingsEntity entity);
+  Future<bool> save(ISettingsEntity entity);
   Future<bool> has();
 }

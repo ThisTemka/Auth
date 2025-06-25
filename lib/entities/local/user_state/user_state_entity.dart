@@ -1,8 +1,6 @@
-import 'package:auth/entities/local/i_user_state_entity.dart';
+import 'package:auth/entities/local/user_state/i_user_state_entity.dart';
 
 class UserStateEntity implements IUserStateEntity {
-  @override
-  final int id;
   @override
   final String token;
   @override
@@ -11,7 +9,6 @@ class UserStateEntity implements IUserStateEntity {
   final String refreshToken;
 
   UserStateEntity({
-    required this.id,
     required this.token,
     this.expiresAt,
     required this.refreshToken,
@@ -24,7 +21,6 @@ class UserStateEntity implements IUserStateEntity {
     String? refreshToken,
   }) {
     return UserStateEntity(
-      id: 0,
       token: token ?? '',
       expiresAt: isExpiresAt ? expiresAt : null,
       refreshToken: refreshToken ?? '',

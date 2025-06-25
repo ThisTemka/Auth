@@ -3,7 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final configAuthServiceProvider =
     Provider.autoDispose<IConfigAuthService>((ref) {
-  return AuthService(ref);
+  final authService = AuthService(ref);
+  ref.onDispose(() {
+    authService.dispose();
+  });
+  return authService;
 });
 
 abstract interface class IConfigAuthService {

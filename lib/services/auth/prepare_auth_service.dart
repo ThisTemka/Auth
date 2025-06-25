@@ -3,5 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> prepareAuthService(ProviderContainer container) async {
   final authService = container.read(configAuthServiceProvider);
-  await authService.load();
+  final result = await authService.load();
+  if (!result) throw Exception('Auth service load failed');
 }

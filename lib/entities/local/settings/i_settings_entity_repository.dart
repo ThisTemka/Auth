@@ -9,6 +9,6 @@ final settingsEntityRepositoryProvider =
 });
 
 abstract interface class ISettingsEntityRepository {
-  Future<void> setTranslationType(TranslationType translationType);
+  Future<bool> setTranslationType(TranslationType translationType);
   Future<ISettingsEntity> load();
 }

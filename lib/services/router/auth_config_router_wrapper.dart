@@ -5,19 +5,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:auth/states/user/i_user_state.dart';
 
 class AuthRouterConfigWrapper implements IRouterConfig {
-  final Ref ref;
-  final IRouterConfig router;
+  final Ref _ref;
+  final IRouterConfig _router;
 
-  AuthRouterConfigWrapper(this.ref, this.router);
+  AuthRouterConfigWrapper(this._ref, this._router);
 
   @override
   String get initialRoute => _getInitialRoute();
 
   @override
-  List<GetPage<dynamic>> get routes => router.routes;
+  List<GetPage<dynamic>> get routes => _router.routes;
 
   String _getInitialRoute() {
-    final userState = ref.read(userStateProvider);
+    final userState = _ref.read(userStateProvider);
     if (userState.token != '') {
       return RoutePagePaths.content.path;
     } else {

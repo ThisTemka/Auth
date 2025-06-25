@@ -9,13 +9,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 class Translation implements ITranslation, IConfigTranslation, Translations {
-  final Ref ref;
+  final Ref _ref;
   late TranslationType? _translationType;
 
-  Translation(this.ref);
+  Translation(this._ref);
 
-  ISettingsEntityRepository get settingsEntityRepository =>
-      ref.read(settingsEntityRepositoryProvider);
+  ISettingsEntityRepository get _settingsEntityRepository =>
+      _ref.read(settingsEntityRepositoryProvider);
 
   @override
   TranslationType get translationType => _translationType!;
@@ -45,7 +45,7 @@ class Translation implements ITranslation, IConfigTranslation, Translations {
 
   @override
   Future<void> load() async {
-    final entity = await settingsEntityRepository.load();
+    final entity = await _settingsEntityRepository.load();
     changeLanguage(entity.translationType);
   }
 
@@ -53,6 +53,6 @@ class Translation implements ITranslation, IConfigTranslation, Translations {
   void changeLanguage(TranslationType translationType) {
     _translationType = translationType;
     Get.updateLocale(translationType.locale);
-    settingsEntityRepository.setTranslationType(translationType);
+    _settingsEntityRepository.setTranslationType(translationType);
   }
 }

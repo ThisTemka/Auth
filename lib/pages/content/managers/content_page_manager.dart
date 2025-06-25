@@ -7,32 +7,32 @@ import 'package:auth/services/translation/translation_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ContentPageManager implements IContentPageManager {
-  final Ref ref;
+  final Ref _ref;
 
-  ContentPageManager(this.ref);
+  ContentPageManager(this._ref);
 
-  IAuthManager get authManager => ref.read(authManagerProvider);
-  IRouter get router => ref.read(routerProvider);
-  ITranslation get translation => ref.read(translationProvider);
+  IAuthManager get _authManager => _ref.read(authManagerProvider);
+  IRouter get _router => _ref.read(routerProvider);
+  ITranslation get _translation => _ref.read(translationProvider);
 
   @override
   void logout() {
-    authManager.logout();
-    router.navigateOn(RoutePagePaths.login);
+    _authManager.logout();
+    _router.navigateOn(RoutePagePaths.login);
   }
 
   @override
   void back() {
-    router.navigateBack();
+    _router.navigateBack();
   }
 
   @override
   TranslationType getTranslationType() {
-    return translation.translationType;
+    return _translation.translationType;
   }
 
   @override
   void changeTranslation(TranslationType translationType) {
-    translation.changeLanguage(translationType);
+    _translation.changeLanguage(translationType);
   }
 }

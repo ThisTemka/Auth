@@ -1,4 +1,5 @@
 import 'package:auth/pages/content/managers/i_content_page_manager.dart';
+import 'package:auth/pages/content/states/data/i_content_page_data_state.dart';
 import 'package:auth/pages/content/translation/content_page_translation.dart';
 import 'package:auth/services/translation/translation_type.dart';
 import 'package:auth/states/user/i_user_state.dart';
@@ -12,6 +13,7 @@ class ContentPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final manager = ref.read(contentPageManagerProvider);
+    final pageDataState = ref.watch(contentPageDataStateProvider);
     final userState = ref.watch(userStateProvider);
 
     return Scaffold(
@@ -114,19 +116,30 @@ class ContentPage extends ConsumerWidget {
               width: double.infinity,
               height: 50.h,
               child: ElevatedButton.icon(
-                onPressed: () => _showLogoutConfirmation(context, manager),
+                onPressed: pageDataState.isLoading
+                    ? null
+                    : () => _showLogoutConfirmation(context, manager),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red[50],
                   foregroundColor: Colors.red,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.r),
                   ),
+                  disabledBackgroundColor: Colors.grey,
                 ),
                 icon: Icon(Icons.logout),
-                label: Text(
-                  ContentPageTranslation.logoutButton,
-                  style: TextStyle(fontSize: 18.spMin),
-                ),
+                label: pageDataState.isLoading
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : Text(
+                        ContentPageTranslation.logoutButton,
+                        style: TextStyle(fontSize: 18.spMin),
+                      ),
               ),
             ),
             SizedBox(height: 10.h),

@@ -103,20 +103,30 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   width: double.infinity,
                   height: 50.h,
                   child: ElevatedButton(
-                    onPressed: () => manager.login(),
+                    onPressed:
+                        pageDataState.isLoading ? null : () => manager.login(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0.r),
                       ),
+                      disabledBackgroundColor: Colors.grey,
                     ),
-                    child: Text(
-                      LoginPageTranslation.loginButton,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.spMin,
-                      ),
-                    ),
+                    child: pageDataState.isLoading
+                        ? SizedBox(
+                            width: 24,
+                            height: 24,
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : Text(
+                            LoginPageTranslation.loginButton,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.spMin,
+                            ),
+                          ),
                   ),
                 ),
                 SizedBox(height: 10.h),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class App extends ConsumerWidget {
   const App({super.key});
@@ -13,24 +14,27 @@ class App extends ConsumerWidget {
     final router = ref.read(routerConfigProvider);
     final translation = ref.read(translationProvider);
 
-    return GetMaterialApp(
-      initialRoute: router.initialRoute,
-      getPages: router.routes,
-      translations: translation.translations,
-      onInit: () {
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.portraitUp,
-          DeviceOrientation.portraitDown,
-        ]);
-      },
-      onDispose: () {
-        SystemChrome.setPreferredOrientations([
-          DeviceOrientation.landscapeRight,
-          DeviceOrientation.landscapeLeft,
-          DeviceOrientation.portraitUp,
-          DeviceOrientation.portraitDown,
-        ]);
-      },
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      builder: (context, child) => GetMaterialApp(
+        initialRoute: router.initialRoute,
+        getPages: router.routes,
+        translations: translation.translations,
+        onInit: () {
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+          ]);
+        },
+        onDispose: () {
+          SystemChrome.setPreferredOrientations([
+            DeviceOrientation.landscapeRight,
+            DeviceOrientation.landscapeLeft,
+            DeviceOrientation.portraitUp,
+            DeviceOrientation.portraitDown,
+          ]);
+        },
+      ),
     );
   }
 }

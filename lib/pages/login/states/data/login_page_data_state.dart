@@ -8,7 +8,7 @@ class LoginPageDataState implements ILoginPageDataState {
 
   LoginPageDataState({
     this.error,
-    this.isLoading = false,
+    required this.isLoading,
   });
 
   @override

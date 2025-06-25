@@ -25,8 +25,8 @@ class AuthApiMapper {
           ? ResponseStatus.success
           : ResponseStatus.error,
       error: response.statusCode == 200 ? null : body['error'],
-      jwt: body['jwt'],
-      refreshToken: body['refresh_token'],
+      jwt: response.statusCode == 200 ? body['jwt'] : null,
+      refreshToken: response.statusCode == 200 ? body['refresh_token'] : null,
     );
   }
 
@@ -37,8 +37,8 @@ class AuthApiMapper {
           ? ResponseStatus.success
           : ResponseStatus.error,
       error: response.statusCode == 200 ? null : body['error'],
-      jwt: body['jwt'],
-      refreshToken: body['refresh_token'],
+      jwt: response.statusCode == 200 ? body['jwt'] : null,
+      refreshToken: response.statusCode == 200 ? body['refresh_token'] : null,
     );
   }
 
@@ -49,7 +49,7 @@ class AuthApiMapper {
           ? ResponseStatus.success
           : ResponseStatus.error,
       error: response.statusCode == 200 ? null : body['error'],
-      userId: body['user_id'],
+      userId: response.statusCode == 200 ? body['user_id'] : null,
     );
   }
 }

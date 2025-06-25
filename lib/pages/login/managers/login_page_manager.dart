@@ -29,6 +29,7 @@ class LoginPageManager implements ILoginPageManager {
   void login() {
     final email = _pageInputState.inputEmailController.text;
     if (_validateEmail(email)) {
+      _pageDataState = _pageDataState.copyWith(isLoading: true);
       _authLogin(email);
     } else {
       _pageDataState = _pageDataState.copyWith(error: 'Invalid email');
@@ -40,6 +41,7 @@ class LoginPageManager implements ILoginPageManager {
     if (result) {
       _router.navigateTo(RoutePagePaths.confirm);
     }
+    _pageDataState = _pageDataState.copyWith(isLoading: false);
   }
 
   bool _validateEmail(String email) {

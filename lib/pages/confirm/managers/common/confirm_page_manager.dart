@@ -46,6 +46,7 @@ class ConfirmPageManager implements IConfirmPageManager {
   void verifyCode() {
     final code = _pageInputState.controllers.map((e) => e.text).join();
     if (_validateCode(code)) {
+      _pageDataState = _pageDataState.copyWith(isLoading: true);
       _confirmAuth(code);
     } else {
       _pageDataState = _pageDataState.copyWith(error: 'Invalid code');
@@ -57,6 +58,7 @@ class ConfirmPageManager implements IConfirmPageManager {
     if (result) {
       _router.navigateOn(RoutePagePaths.content);
     }
+    _pageDataState = _pageDataState.copyWith(isLoading: false);
   }
 
   bool _validateCode(String code) {

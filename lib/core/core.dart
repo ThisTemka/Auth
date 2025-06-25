@@ -1,6 +1,8 @@
 import 'package:auth/entities/local/prepare_user_state_entity_repository.dart';
+import 'package:auth/entities/local/settings/prepare_i_settings_entity_repository.dart';
 import 'package:auth/services/auth/prepare_auth_service.dart';
 import 'package:auth/services/store/prepare_store.dart';
+import 'package:auth/services/translation/prepare_i_translation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,6 +23,8 @@ class Core {
 
     await prepareStore(container);
     await prepareUserStateEntityRepository(container);
+    await prepareSettingsEntityRepository(container);
     await prepareAuthService(container);
+    await prepareTranslation(container);
   }
 }

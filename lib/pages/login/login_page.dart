@@ -1,6 +1,8 @@
 import 'package:auth/pages/login/managers/i_login_page_manager.dart';
 import 'package:auth/pages/login/states/data/i_login_page_data_state.dart';
 import 'package:auth/pages/login/states/input/i_login_page_input_state.dart';
+import 'package:auth/pages/login/translation/login_page_translation.dart';
+import 'package:auth/services/translation/translation_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,25 +34,37 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 40),
-            const Text(
-              'Login',
+            const SizedBox(height: 10),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Switch.adaptive(
+                value: manager.getTranslationType() == TranslationType.ru,
+                onChanged: (value) => manager.changeTranslation(
+                    value ? TranslationType.ru : TranslationType.en),
+                thumbIcon: WidgetStateProperty.all(
+                  const Icon(Icons.translate),
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            Text(
+              LoginPageTranslation.title,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              'Welcome back, Rohit thakur',
+            Text(
+              LoginPageTranslation.welcome,
               style: TextStyle(
                 fontSize: 18,
                 color: Colors.black54,
               ),
             ),
             const SizedBox(height: 40),
-            const Text(
-              'Enter Your Email',
+            Text(
+              LoginPageTranslation.enterEmail,
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -62,7 +76,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
               onChanged: (value) => manager.inputEmail(value),
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                hintText: 'Enter Email',
+                hintText: LoginPageTranslation.enterEmailHint,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -85,8 +99,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-                child: const Text(
-                  'Login',
+                child: Text(
+                  LoginPageTranslation.loginButton,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,

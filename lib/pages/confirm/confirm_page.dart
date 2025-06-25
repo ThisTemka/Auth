@@ -3,6 +3,8 @@ import 'package:auth/pages/confirm/managers/resend/i_confirm_page_resend_manager
 import 'package:auth/pages/confirm/states/data/i_confirm_page_data_state.dart';
 import 'package:auth/pages/confirm/states/input/i_confirm_page_input_state.dart';
 import 'package:auth/pages/confirm/states/timer/i_confirm_page_timer_state.dart';
+import 'package:auth/pages/confirm/translation/confirm_page_translation.dart';
+import 'package:auth/services/translation/translation_type.dart';
 import 'package:auth/states/user/i_user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,6 +56,16 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => manager.back(),
         ),
+        actions: [
+          Switch.adaptive(
+            value: manager.getTranslationType() == TranslationType.ru,
+            onChanged: (value) => manager.changeTranslation(
+                value ? TranslationType.ru : TranslationType.en),
+            thumbIcon: WidgetStateProperty.all(
+              const Icon(Icons.translate),
+            ),
+          )
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -62,9 +74,9 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 40),
-              const Text(
-                'Verification',
-                style: TextStyle(
+              Text(
+                ConfirmPageTranslation.title,
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -72,7 +84,7 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
               const SizedBox(height: 20),
               RichText(
                 text: TextSpan(
-                  text: 'Enter the code sent to ',
+                  text: ConfirmPageTranslation.enterCode(userState.email!),
                   style: const TextStyle(
                     fontSize: 16,
                     color: Colors.black54,
@@ -129,16 +141,17 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
                 child: pageDataState.resendEnabled
                     ? TextButton(
                         onPressed: () => resendManager.waitResendCode(),
-                        child: const Text(
-                          'Resend code',
-                          style: TextStyle(
+                        child: Text(
+                          ConfirmPageTranslation.resendCode,
+                          style: const TextStyle(
                             fontSize: 16,
                             color: Colors.blue,
                           ),
                         ),
                       )
                     : Text(
-                        'Resend code in ${pageTimerState.countdown} seconds',
+                        ConfirmPageTranslation.resendCodeIn(
+                            pageTimerState.countdown),
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.grey,
@@ -159,9 +172,9 @@ class _ConfirmPageState extends ConsumerState<ConfirmPage> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  child: const Text(
-                    'Verify',
-                    style: TextStyle(
+                  child: Text(
+                    ConfirmPageTranslation.verify,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                     ),

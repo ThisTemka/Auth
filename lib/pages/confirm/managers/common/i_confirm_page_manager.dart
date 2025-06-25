@@ -1,4 +1,5 @@
 import 'package:auth/pages/confirm/managers/common/confirm_page_manager.dart';
+import 'package:auth/services/translation/translation_type.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final confirmPageManagerProvider =
@@ -11,4 +12,6 @@ abstract interface class IConfirmPageManager {
   void back();
   void inputCode(int index, String value);
   void verifyCode();
+  TranslationType getTranslationType();
+  void changeTranslation(TranslationType translationType);
 }

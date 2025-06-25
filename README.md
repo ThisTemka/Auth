@@ -21,9 +21,9 @@ flutter pub get
 - защититься от инжектинга
 
 # Скриншоты
-![photo_6_2025-06-25_08-35-40](https://github.com/user-attachments/assets/32c012e8-dc1c-4569-8186-fc5a4ce4ecd9)
-![photo_5_2025-06-25_08-35-40](https://github.com/user-attachments/assets/dc3407b4-dfdd-4344-a5f0-913aae3bff8c)
-![photo_2_2025-06-25_08-35-40](https://github.com/user-attachments/assets/c02052d6-65e5-4270-8b76-937836caa7a1)
-![photo_3_2025-06-25_08-35-40](https://github.com/user-attachments/assets/16afc567-32ca-4de5-b545-8c7d2f2aae39)
-![photo_4_2025-06-25_08-35-40](https://github.com/user-attachments/assets/0e3c0e85-8326-4c17-9ec9-1f7f755b2f5c)
-![photo_1_2025-06-25_08-35-40](https://github.com/user-attachments/assets/24b3e3ff-7537-441a-8ac3-33a2bf03704b)
+<img src="https://github.com/user-attachments/assets/32c012e8-dc1c-4569-8186-fc5a4ce4ecd9" width=200></img>
+<img src="https://github.com/user-attachments/assets/dc3407b4-dfdd-4344-a5f0-913aae3bff8c" width=200></img>
+<img src="https://github.com/user-attachments/assets/c02052d6-65e5-4270-8b76-937836caa7a1" width=200></img>
+<img src="https://github.com/user-attachments/assets/16afc567-32ca-4de5-b545-8c7d2f2aae39" width=200></img>
+<img src="https://github.com/user-attachments/assets/0e3c0e85-8326-4c17-9ec9-1f7f755b2f5c" width=200></img>
+<img src="https://github.com/user-attachments/assets/24b3e3ff-7537-441a-8ac3-33a2bf03704b" width=200></img>

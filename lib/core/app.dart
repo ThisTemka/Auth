@@ -16,24 +16,12 @@ class App extends ConsumerWidget {
 
     return ScreenUtilInit(
       designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
       builder: (context, child) => GetMaterialApp(
         initialRoute: router.initialRoute,
         getPages: router.routes,
         translations: translation.translations,
-        onInit: () {
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.portraitUp,
-            DeviceOrientation.portraitDown,
-          ]);
-        },
-        onDispose: () {
-          SystemChrome.setPreferredOrientations([
-            DeviceOrientation.landscapeRight,
-            DeviceOrientation.landscapeLeft,
-            DeviceOrientation.portraitUp,
-            DeviceOrientation.portraitDown,
-          ]);
-        },
       ),
     );
   }
